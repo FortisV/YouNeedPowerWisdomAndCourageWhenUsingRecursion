@@ -3,12 +3,68 @@
  */
 package org.example;
 
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+
+import java.util.Arrays;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class AppTest {
-    @Test void appHasAGreeting() {
-        App classUnderTest = new App();
-        assertNotNull(classUnderTest.getGreeting(), "app should have a greeting");
+    static TriangleNumberCalculator calc;
+
+    @BeforeAll
+    static void init() {
+        calc = new TriangleNumberCalculator();
+    }
+
+    @Test
+    void num1() {
+        assertEquals(1, calc.value(1));
+    }
+
+    @Test
+    void num2() {
+        assertEquals(3, calc.value(2));
+    }
+
+    @Test
+    void num3() {
+        assertEquals(6, calc.value(3));
+    }
+
+    @Test
+    void num5() {
+        assertEquals(15, calc.value(5));
+    }
+
+    @Test
+    void num10() {
+        assertEquals(55, calc.value(10));
+    }
+
+    @Test
+    void num3addnum5() {
+        assertEquals(61, calc.add(10, 3));
+    }
+
+    @Test
+    void num3subtractnum5() {
+        assertEquals(49, calc.subtract(10, 3));
+    }
+
+    @Test
+    void num3multiplynum5() {
+        assertEquals(330, calc.multiply(10, 3));
+    }
+
+    @Test
+    void num3dividenum5() {
+        assertEquals(55.0/6.0, calc.divide(10, 3), 10e-5);
+    }
+
+    @Test
+    void num10sequence() {
+        assertEquals(Arrays.asList(1, 3, 6, 10, 15, 21, 28, 36, 45, 55), calc.sequence(10));
     }
 }
