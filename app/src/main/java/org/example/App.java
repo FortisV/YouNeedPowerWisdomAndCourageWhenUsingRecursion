@@ -3,12 +3,81 @@
  */
 package org.example;
 
-public class App {
-    public String getGreeting() {
-        return "Hello World!";
-    }
+import java.util.ArrayList;
+import java.util.Scanner;
 
+public class App {
+    private int n;
+    private int m;
+    private TriangleNumberCalculator calc;
+    void getInput() {
+        Scanner scanner = new Scanner(System.in);
+
+        boolean repeat = true;
+        while(repeat) {
+            String line;
+            System.out.print("Enter value for n: ");
+            line = scanner.nextLine();
+            try {
+                n = Integer.parseInt(line);
+                repeat = false;
+            } catch(Exception e) {
+                System.out.println("Invalid input");
+            }
+        }
+
+        repeat = true;
+        while(repeat) {
+            String line;
+            System.out.print("Enter value for m: ");
+            line = scanner.nextLine();
+            try {
+                m = Integer.parseInt(line);
+                repeat = false;
+            } catch(Exception e) {
+                System.out.println("Invalid input");
+            }
+        }
+
+        scanner.close();
+    }
+    void printSequence(ArrayList<Integer> s) {
+        System.out.print('[');
+        for(int i = 0; i < s.size(); ++i) {
+            if(i != 0) {
+                System.out.print(", ");
+            }
+            System.out.print(s.get(i).intValue());
+        }
+        System.out.print(']');
+    }
+    void printOutputs() {
+        System.out.println("Tn = " + calc.value(n));
+        System.out.println("Tm = " + calc.value(m));
+        System.out.println("Tn + Tm = " + calc.add(n, m));
+        System.out.println("Tn - Tm = " + calc.subtract(n, m));
+        System.out.println("Tn * Tm = " + calc.multiply(n, m));
+        System.out.println("Tn / Tm = " + calc.divide(n, m));
+        ArrayList<Integer> nS = calc.sequence(n);
+        System.out.print("T1, T2, T3, ..., Tn-1, Tn = ");
+        printSequence(nS);
+        System.out.println();
+        ArrayList<Integer> mS = calc.sequence(m);
+        System.out.print("T1, T2, T3, ..., Tm-1, Tm = ");
+        printSequence(mS);
+        System.out.println();
+    }
+    void init() {
+        n = 0;
+        m = 0;
+        calc = new TriangleNumberCalculator();
+    }
+    public void run() {
+        init();
+        getInput();
+        printOutputs();
+    }
     public static void main(String[] args) {
-        System.out.println(new App().getGreeting());
+        new App().run();
     }
 }
